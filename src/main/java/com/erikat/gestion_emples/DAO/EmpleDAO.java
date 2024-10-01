@@ -5,10 +5,7 @@ import com.erikat.gestion_emples.Obj.Emple;
 import com.erikat.gestion_emples.Utils.DatabaseManager;
 
 import javax.xml.crypto.Data;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -73,10 +70,11 @@ public class EmpleDAO {
 
     public ArrayList<Emple> listEmple(){
         ArrayList<Emple> list = new ArrayList<>();
-        String sql = "SELECT * FROM EMPLE";
+        String sql = "SELECT * FROM EMPLE WHERE working_dept = ANY(SELECT ID FROM DEPART WHERE ENTERPRISE=?)";
         try {
 
             PreparedStatement sentencia = con.prepareStatement(sql);
+            sentencia.setInt(1, DatabaseManager.enterp.getId());
             ResultSet rs = sentencia.executeQuery();
             while (rs.next()){
                 DepartDAO dptFinder = new DepartDAO();

@@ -1,6 +1,7 @@
 package com.erikat.gestion_emples.DAO;
 
 import com.erikat.gestion_emples.Obj.Depart;
+import com.erikat.gestion_emples.Obj.Emple;
 import com.erikat.gestion_emples.Obj.Enterprise;
 import com.erikat.gestion_emples.Utils.DatabaseManager;
 
@@ -47,12 +48,19 @@ public class DepartDAO {
         }
         return -1;
     }
-    public int dropDept(Depart dept){
+    public int dropDept(int id){
+        EmpleDAO empDAO = new EmpleDAO();
+        ArrayList<Emple> listEmple = empDAO.listEmple();
+        for (Emple e : listEmple){
+            if (e.getDept().getId() == id){
+                empDAO.deleteEmple(e.getDNI()); //Primero borra a todos los empleados del departamento
+            }
+        }
         String sql = "DELETE FROM DEPART WHERE ID = ?";
         try{
 
             PreparedStatement sentencia = con.prepareStatement(sql);
-            sentencia.setInt(1, dept.getId());
+            sentencia.setInt(1, id);
             return sentencia.executeUpdate(); //Devuelve el número de líneas actualizadas (El programa funciona bien si solo sale una)
 
         }catch (SQLException e){

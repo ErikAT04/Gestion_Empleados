@@ -1,5 +1,6 @@
 package com.erikat.gestion_emples.DAO;
 
+import com.erikat.gestion_emples.Obj.Depart;
 import com.erikat.gestion_emples.Obj.Enterprise;
 import com.erikat.gestion_emples.Utils.DatabaseManager;
 
@@ -7,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class EnterpriseDAO {
     private Connection con;
@@ -45,6 +47,13 @@ public class EnterpriseDAO {
     }
 
     public int deleteEnterprise(int id){
+        DepartDAO depDAO = new DepartDAO();
+        ArrayList<Depart> depts = depDAO.listDepts();
+        for (Depart dep: depts){
+            if(dep.getEnterprise().getId() == id){
+                depDAO.dropDept(dep.getId()); //Borra todos los departamentos pertenecientes a la empresa.
+            }
+        }
         String sql = "DELETE FROM ENTERPRISE WHERE id = ?";
         try {
 

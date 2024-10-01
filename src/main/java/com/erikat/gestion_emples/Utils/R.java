@@ -9,7 +9,7 @@ public class R {
     public static InputStream getProperties(String name) {
         return Thread.currentThread().getContextClassLoader().getResourceAsStream("config" + File.separator + name);
     }
-    public static URL getFXML(String name){
+    public static URL getUI(String name){
         return Thread.currentThread().getContextClassLoader().getResource("ui" + File.separator + name);
     }
 

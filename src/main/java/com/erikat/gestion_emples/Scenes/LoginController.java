@@ -50,14 +50,15 @@ public class LoginController extends Controller implements Initializable {
     void onLoginClick(ActionEvent event) {
         String enterpName = enterNameTField.getText();
         String enterpPass = enterPassField.getText();
+        String passEncrypted;
         if (enterpName.isEmpty() || enterpPass.isEmpty()) { //Si alguno de los campos está vacío
             AlertUtil.showAlert("Error de inicio de sesión", "Los campos deben estar rellenados correctamente", Alert.AlertType.ERROR);
         } else{
             Enterprise enter = enterDAO.searchEnterp(enterpName);
-            enterpPass = DigestUtils.sha256Hex(enterpPass);
+            passEncrypted = DigestUtils.sha256Hex(enterpPass); //Se encripta la contraseña introducida
             if (enter==null){
                 AlertUtil.showAlert("Error de usuario", "No se encuentra ningún usuario con ese nombre en la base de datos", Alert.AlertType.ERROR);
-            } else if (enterpPass.equals(enter.getEnter_passwd())){
+            } else if (passEncrypted.equals(enter.getEnter_passwd())){
                 AlertUtil.showAlert("Usuario conectado", "Bienvenido de vuelta, " + enter.getEnter_name(), Alert.AlertType.INFORMATION);
                 DatabaseManager.enterp = enter; //Guardo la empresa para usarla más tarde
                 SceneUtils.changeSceneNewStage("mainView.fxml");
@@ -72,7 +73,7 @@ public class LoginController extends Controller implements Initializable {
         if (txtSize > 255){
             enterNameTField.setText(enterNameTField.getText().substring(0, txtSize));
         } else if(txtSize < 255){
-            enterNameLbl.setTextFill(Color.BLACK);
+            enterNameLbl.setTextFill(Color.WHITE);
         } else {
             enterNameLbl.setTextFill(Color.RED);
         }
@@ -85,7 +86,7 @@ public class LoginController extends Controller implements Initializable {
         if (txtSize > 255){
             enterPassField.setText(enterPassField.getText().substring(0, txtSize));
         } else if(txtSize < 255){
-            enterPasswdLbl.setTextFill(Color.BLACK);
+            enterPasswdLbl.setTextFill(Color.WHITE);
         } else {
             enterPasswdLbl.setTextFill(Color.RED);
         }
@@ -96,6 +97,7 @@ public class LoginController extends Controller implements Initializable {
     void onRegisterClick(ActionEvent event) {
         String enterpName = enterNameTField.getText();
         String enterpPass = enterPassField.getText();
+        String passEncrypted;
         if (enterpName.isEmpty() || enterpPass.isEmpty()) { //Si alguno de los campos está vacío
             AlertUtil.showAlert("Error de creación", "Los campos deben estar rellenados correctamente", Alert.AlertType.ERROR);
         } else if (enterDAO.searchEnterp(enterpName)!=null){ //Si encuentra una cuenta con el nombre dado
@@ -103,8 +105,8 @@ public class LoginController extends Controller implements Initializable {
         } else if (!Validator.validatePassword(enterpPass, enterpName)){ //Comprueba todos los requisitos de la contraseña
             AlertUtil.showAlert("Error de contraseña", "La contraseña escrita no cumple los requisitos marcados en el icono '\uD83D\uDEC8'", Alert.AlertType.ERROR);
         } else {
-            enterpPass = DigestUtils.sha256Hex(enterpPass); //Encripto la contraseña
-            if (enterDAO.registerEnterprise(enterpName, enterpPass)==1){ //Si se actualiza una fila (es decir, si ha salido bien el insert)
+            passEncrypted = DigestUtils.sha256Hex(enterpPass); //Encripto la contraseña
+            if (enterDAO.registerEnterprise(enterpName, passEncrypted)==1){ //Si se actualiza una fila (es decir, si ha salido bien el insert)
                 AlertUtil.showAlert("Creación de cuenta", "Cuenta creada correctamente", Alert.AlertType.INFORMATION);
                 DatabaseManager.enterp = enterDAO.searchEnterp(enterpName); //Se guarda la empresa seleccionada de forma estática, ya que va a ser utilizada más adelante.
                 SceneUtils.changeSceneNewStage("mainView.fxml");

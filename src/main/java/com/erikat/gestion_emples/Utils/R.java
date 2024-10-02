@@ -10,7 +10,7 @@ public class R {
         return Thread.currentThread().getContextClassLoader().getResourceAsStream("config" + File.separator + name);
     }
     public static URL getUI(String name){
-        return Thread.currentThread().getContextClassLoader().getResource("ui" + File.separator + name);
+        return Thread.currentThread().getContextClassLoader().getResource("ui/" + name);
     }
 
 }

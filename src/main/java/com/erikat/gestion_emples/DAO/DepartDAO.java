@@ -18,7 +18,7 @@ public class DepartDAO {
         con = DatabaseManager.conectar();
     }
     public int addDept(String dept_name, String dept_location){
-        String sql = "INSERT INTO DEPART(dept_name, dept_location, enterprise) VALUES (?, ?, ?);";
+        String sql = "INSERT INTO DEPT(dept_name, dept_location, enterprise) VALUES (?, ?, ?);";
         try{
 
             PreparedStatement sentencia = con.prepareStatement(sql);
@@ -33,7 +33,7 @@ public class DepartDAO {
         return -1; //Valor que solo puede dar si hay error en el try-catch
     }
     public int modDept(Depart dept){
-        String sql = "UPDATE DEPART SET dept_name = ?, dept_location = ? WHERE id = ?";
+        String sql = "UPDATE DEPT SET dept_name = ?, dept_location = ? WHERE id = ?";
         try{
 
             PreparedStatement sentencia = con.prepareStatement(sql);
@@ -56,7 +56,7 @@ public class DepartDAO {
                 empDAO.deleteEmple(e.getDNI()); //Primero borra a todos los empleados del departamento
             }
         }
-        String sql = "DELETE FROM DEPART WHERE ID = ?";
+        String sql = "DELETE FROM DEPT WHERE ID = ?";
         try{
 
             PreparedStatement sentencia = con.prepareStatement(sql);
@@ -70,7 +70,7 @@ public class DepartDAO {
     }
     public ArrayList<Depart> listDepts(){
         ArrayList<Depart> list = new ArrayList<>();
-        String sql = "SELECT * FROM DEPART WHERE ENTERPRISE = ?";
+        String sql = "SELECT * FROM DEPT WHERE ENTERPRISE = ?";
         try{
 
             PreparedStatement sentencia = con.prepareStatement(sql);
@@ -91,7 +91,7 @@ public class DepartDAO {
 
     public Depart searchDept(int id){
         Depart dpt = null;
-        String sql = "SELECT * FROM DEPART WHERE ID = ?";
+        String sql = "SELECT * FROM DEPT WHERE ID = ?";
         try{
 
             PreparedStatement sentencia = con.prepareStatement(sql);

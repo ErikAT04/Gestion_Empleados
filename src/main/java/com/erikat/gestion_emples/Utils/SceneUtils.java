@@ -24,7 +24,7 @@ public class SceneUtils {
             stage.show();
             return loader.getController();
         }catch (IOException e){
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return null;
     }

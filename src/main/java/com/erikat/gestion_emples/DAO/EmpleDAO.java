@@ -70,7 +70,7 @@ public class EmpleDAO {
 
     public ArrayList<Emple> listEmple(){
         ArrayList<Emple> list = new ArrayList<>();
-        String sql = "SELECT * FROM EMPLE WHERE working_dept = ANY(SELECT ID FROM DEPART WHERE ENTERPRISE=?)";
+        String sql = "SELECT * FROM EMPLE WHERE working_dept = ANY(SELECT ID FROM DEPT WHERE ENTERPRISE=?)";
         try {
 
             PreparedStatement sentencia = con.prepareStatement(sql);

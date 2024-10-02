@@ -1,5 +1,6 @@
 package com.erikat.gestion_emples.Utils;
 
+import com.erikat.gestion_emples.HelloApplication;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -24,7 +25,7 @@ public class SceneUtils {
             stage.show();
             return loader.getController();
         }catch (IOException e){
-            System.out.println(e.getMessage());
+            System.out.println(e.getCause());
         }
         return null;
     }

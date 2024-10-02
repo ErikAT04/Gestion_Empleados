@@ -40,8 +40,8 @@ public class LoginController extends Controller implements Initializable {
     void onInfoClick(MouseEvent event) {
         String info = """
                 Información de la contraseña:
-                    1. Debe tener carácteres alfanuméricos
-                    2. Debe tener al menos 8 caracteres y, como mucho, 255
+                    1. Debe tener carácteres alfanuméricos, como mínimo con una mayúscula
+                    2. Debe tener al menos 8 caracteres y, como mucho, 64
                     3. No debe ser igual que el nombre de la empresa.""";
         AlertUtil.showAlert("Información de contraseñas", info, Alert.AlertType.INFORMATION);
     }

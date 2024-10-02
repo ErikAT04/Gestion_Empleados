@@ -48,10 +48,9 @@ public class DepartsMainController extends Controller implements Initializable {
     @FXML
     void onEditClick(ActionEvent event) {
         DepartsEditController controller = (DepartsEditController) SceneUtils.changeSceneNewStage("departsEditMenu.fxml");
-        tableRefresh();
     }
 
-    private void tableRefresh(){
+    public void tableRefresh(){
         ObservableList<Depart> list = FXCollections.observableArrayList(dptDAO.listDepts());
         deptTView.setItems(list);
     }

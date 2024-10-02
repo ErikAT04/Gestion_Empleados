@@ -15,7 +15,7 @@ public class EmpleDAO {
         con = DatabaseManager.conectar();
     }
     public int addEmple(String dni, Depart dpt, String name, String surname, double salary, LocalDate date_join){
-        String sql = "INSERT INTO EMPLE (dni, working_dept, emp_name, emp_surname, emp_salary, emp_date_join) VALUES (?, ?, ?, ?, ?, STR_TO_DATE(?, '%Y-%m-%d')";
+        String sql = "INSERT INTO EMPLE(dni, working_dept, emp_name, emp_surname, emp_salary, emp_date_join) VALUES(?, ?, ?, ?, ?, STR_TO_DATE(?, '%Y-%m-%d'))";
 
         try {
 
@@ -29,7 +29,7 @@ public class EmpleDAO {
             return sentencia.executeUpdate();
 
         }catch (SQLException e){
-            System.out.println("Error de db: " + e.getSQLState());
+            System.out.println("Error de db: " + e.getMessage());
         }
         return -1;
     }
@@ -49,7 +49,7 @@ public class EmpleDAO {
             return sentencia.executeUpdate();
 
         }catch (SQLException e){
-            System.out.println("Error de db: " + e.getSQLState());
+            System.out.println("Error de db: " + e.getMessage());
         }
         return -1;
     }
@@ -63,7 +63,7 @@ public class EmpleDAO {
             return sentencia.executeUpdate();
 
         }catch (SQLException e){
-            System.out.println("Error de db: " + e.getSQLState());
+            System.out.println("Error de db: " + e.getMessage());
         }
         return -1;
     }
@@ -89,7 +89,7 @@ public class EmpleDAO {
             }
 
         }catch (SQLException e){
-            System.out.println("Error de db: " + e.getSQLState());
+            System.out.println("Error de db: " + e.getMessage());
         }
         return list;
     }
@@ -114,7 +114,7 @@ public class EmpleDAO {
             }
 
         }catch (SQLException e){
-            System.out.println("Error de db: " + e.getSQLState());
+            System.out.println("Error de db: " + e.getMessage());
         }
         return emple;
     }

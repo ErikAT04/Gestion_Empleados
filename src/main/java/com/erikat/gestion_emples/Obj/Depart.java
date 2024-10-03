@@ -44,4 +44,9 @@ public class Depart {
     public void setEnterprise(Enterprise enterprise) {
         this.enterprise = enterprise;
     }
+
+    @Override
+    public String toString() {
+        return "Departamento de " + dept_name + " en " + dept_location;
+    }
 }

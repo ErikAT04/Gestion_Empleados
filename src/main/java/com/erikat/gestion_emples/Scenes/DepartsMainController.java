@@ -2,6 +2,7 @@ package com.erikat.gestion_emples.Scenes;
 
 import com.erikat.gestion_emples.DAO.DepartDAO;
 import com.erikat.gestion_emples.Obj.Depart;
+import com.erikat.gestion_emples.Utils.AlertUtil;
 import com.erikat.gestion_emples.Utils.Controller;
 import com.erikat.gestion_emples.Utils.SceneUtils;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -11,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -37,17 +39,31 @@ public class DepartsMainController extends Controller implements Initializable {
 
     @FXML
     void onAddClick(ActionEvent event) {
-        SceneUtils.changeSceneNewStage("departsEditMenu.fxml");
+        DepartsEditController controller = (DepartsEditController) SceneUtils.changeSceneNewStage("departsEditMenu.fxml");
     }
 
     @FXML
     void onDeleteClick(ActionEvent event) {
-
+        Depart dpt = this.deptTView.getSelectionModel().getSelectedItem();
+        if (dpt != null) {
+            dptDAO.dropDept(dpt.getId());
+            AlertUtil.showAlert("Borrado de departamentos", "Departamento borrado correctamente", Alert.AlertType.INFORMATION);
+        } else {
+            AlertUtil.showAlert("Borrado de departamentos", "No has seleccionado ningún departamento", Alert.AlertType.ERROR);
+        }
     }
 
     @FXML
     void onEditClick(ActionEvent event) {
-        DepartsEditController controller = (DepartsEditController) SceneUtils.changeSceneNewStage("departsEditMenu.fxml");
+        Depart dpt = this.deptTView.getSelectionModel().getSelectedItem();
+        if (dpt != null) {
+            DepartsEditController controller = (DepartsEditController) SceneUtils.changeSceneNewStage("departsEditMenu.fxml");
+            controller.getPrevController(this);
+            controller.load(dpt);
+        } else {
+            AlertUtil.showAlert("Borrado de departamentos", "No has seleccionado ningún departamento", Alert.AlertType.ERROR);
+        }
+
     }
 
     public void tableRefresh(){

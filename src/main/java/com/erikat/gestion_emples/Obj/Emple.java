@@ -66,4 +66,9 @@ public class Emple {
     public void setDate_join(LocalDate date_join) {
         this.date_join = date_join;
     }
+
+    @Override
+    public String toString() {
+        return "Empleado de dni " + dni + ": Nombre " + name + " " + surname + ", Salario: " + salary + ", Fecha de Alta: " + date_join + ", Departamento: [" + dept.toString() + "]";
+    }
 }

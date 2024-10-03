@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="200.0" prefWidth="333.0" stylesheets="@../styles/mainStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.erikat.gestion_emples.Scenes.ChangeNameController">
+   <children>
+      <Label layoutX="18.0" layoutY="45.0" text="Escribe el nuevo nombre:" />
+      <TextField fx:id="nameTField" layoutX="164.0" layoutY="41.0" />
+      <Label layoutX="36.0" layoutY="85.0" text="Escribe tu contraseña:" />
+      <Button fx:id="changeBtt" layoutX="133.0" layoutY="134.0" mnemonicParsing="false" onAction="#onChangeClick" text="Cambiar" />
+      <PasswordField fx:id="passField" layoutX="165.0" layoutY="81.0" />
+   </children>
+</AnchorPane>

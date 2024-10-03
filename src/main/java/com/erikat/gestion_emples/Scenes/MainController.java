@@ -40,7 +40,8 @@ public class MainController extends Controller implements Initializable {
 
     @FXML
     void onOthersClick(ActionEvent event) {
-        SceneUtils.changeSceneNewStage("others.fxml");
+        OthersController controller = (OthersController) SceneUtils.changeSceneNewStage("others.fxml");
+        controller.load((Stage) this.othersBtt.getScene().getWindow()); //Paso este Stage, ya que puede que el próximo controlador se encargue de cerrar todas las ventanas
     }
 
     @Override

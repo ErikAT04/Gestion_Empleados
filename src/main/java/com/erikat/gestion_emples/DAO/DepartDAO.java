@@ -28,7 +28,7 @@ public class DepartDAO {
             return sentencia.executeUpdate(); //Devuelve el número de líneas introducidas
 
         }catch (SQLException e){
-            System.out.println("Error de db: "+e.getSQLState());
+            System.out.println("Error de db: "+e.getMessage());
         }
         return -1; //Valor que solo puede dar si hay error en el try-catch
     }
@@ -44,7 +44,7 @@ public class DepartDAO {
             return sentencia.executeUpdate(); //Devuelve el número de líneas actualizadas (Funciona bien si solo sale una)
 
         }catch (SQLException e){
-            System.out.println("Error de db: "+e.getSQLState());
+            System.out.println("Error de db: "+e.getMessage());
         }
         return -1;
     }
@@ -64,7 +64,7 @@ public class DepartDAO {
             return sentencia.executeUpdate(); //Devuelve el número de líneas actualizadas (El programa funciona bien si solo sale una)
 
         }catch (SQLException e){
-            System.out.println("Error de db: "+e.getSQLState());
+            System.out.println("Error de db: "+e.getMessage());
         }
         return -1; //Caso donde hay un error, nunca va a haber -1 actualizaciones
     }
@@ -84,7 +84,7 @@ public class DepartDAO {
             }
 
         }catch (SQLException e){
-            System.out.println("Error de db: "+e.getSQLState());
+            System.out.println("Error de db: "+e.getMessage());
         }
         return list; //Devuelve la lista, independientemente de si tiene o no filas
     }
@@ -105,8 +105,23 @@ public class DepartDAO {
             }
 
         }catch (SQLException e){
-            System.out.println("Error de db: " + e.getSQLState());
+            System.out.println("Error de db: " + e.getMessage());
         }
         return dpt;
+    }
+    public boolean lookIfDepartExists(String name, String location){
+        String sql = "SELECT * FROM DEPT WHERE dept_name = ? AND dept_location = ? AND enterprise = ?";
+        try{
+            PreparedStatement sentencia = con.prepareStatement(sql);
+            sentencia.setString(1, name);
+            sentencia.setString(2, location);
+            sentencia.setInt(3, DatabaseManager.enterp.getId());
+
+            ResultSet rs = sentencia.executeQuery();
+            return rs.next(); //Devolverá true si encuentra un valor
+        }catch (SQLException e){
+            System.out.println("Error de db: "+e.getMessage());
+        }
+        return true; //Si salta excepción, dará true para que la función no siga su curso
     }
 }

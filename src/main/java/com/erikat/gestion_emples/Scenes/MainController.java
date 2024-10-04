@@ -13,6 +13,8 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+//CONTROLADOR QUE AFECTA AL FICHERO 'changeName.fxml'
+
 public class MainController extends Controller implements Initializable {
 
     @FXML

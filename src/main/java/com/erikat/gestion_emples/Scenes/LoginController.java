@@ -20,6 +20,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+//CONTROLADOR QUE AFECTA AL FICHERO 'changeName.fxml'
+
 public class LoginController extends Controller implements Initializable {
 
     @FXML

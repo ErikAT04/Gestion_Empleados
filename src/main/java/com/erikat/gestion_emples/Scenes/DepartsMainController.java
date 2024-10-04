@@ -20,6 +20,8 @@ import javafx.scene.control.TableView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+//CONTROLADOR QUE AFECTA AL FICHERO 'departsMainView.fxml'
+
 public class DepartsMainController extends Controller implements Initializable {
     DepartDAO dptDAO;
     @FXML
@@ -44,8 +46,8 @@ public class DepartsMainController extends Controller implements Initializable {
 
     @FXML
     void onDeleteClick(ActionEvent event) {
-        Depart dpt = this.deptTView.getSelectionModel().getSelectedItem();
-        if (dpt != null) {
+        Depart dpt = this.deptTView.getSelectionModel().getSelectedItem();//Guarda la selección de la tabla en un objeto de tipo Depart
+        if (dpt != null) { //Si la selección no es nula (Se ha seleccionado algo:
             dptDAO.dropDept(dpt.getId());
             AlertUtil.showAlert("Borrado de departamentos", "Departamento borrado correctamente", Alert.AlertType.INFORMATION);
         } else {
@@ -55,7 +57,7 @@ public class DepartsMainController extends Controller implements Initializable {
 
     @FXML
     void onEditClick(ActionEvent event) {
-        Depart dpt = this.deptTView.getSelectionModel().getSelectedItem();
+        Depart dpt = this.deptTView.getSelectionModel().getSelectedItem();//Guarda la selección de la tabla en un objeto de tipo Depart
         if (dpt != null) {
             DepartsEditController controller = (DepartsEditController) SceneUtils.changeSceneNewStage("departsEditMenu.fxml");
             controller.getPrevController(this);
@@ -66,16 +68,23 @@ public class DepartsMainController extends Controller implements Initializable {
 
     }
 
-    public void tableRefresh(){
+    public void tableRefresh(){ //Se encarga de cargar y recargar la tabla
         ObservableList<Depart> list = FXCollections.observableArrayList(dptDAO.listDepts());
         deptTView.setItems(list);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        dptDAO = new DepartDAO();
+        dptDAO = new DepartDAO(); //Crea el objeto DAO
+        /*
+        En las siguientes líneas, se realiza lo siguiente:
+            1-Se crea un objeto de solo lectura que guardará los valores de cada celda. Se crea uno por columna de la tabla
+            2-Se le da el valor que interesa que guarde (en la columna de Nombre el nombre y en la columna de Localización la localización)
+        Para que salga como nos interesa, hay que dar valores en la declaración de la tabla.
+        La tabla será de tipo TableView<Depart> (para que data.getValue() sea de tipo Depart) y las columntas de tipo TableColumn<Depart, String>
+         */
         nameTColumn.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(data.getValue().getDept_name()));
         locTColumn.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(data.getValue().getDept_location()));
-        tableRefresh();
+        tableRefresh(); //Carga la tabla
     }
 }

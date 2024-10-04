@@ -28,6 +28,8 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+//CONTROLADOR QUE AFECTA AL FICHERO 'changeName.fxml'
+
 public class OthersController extends Controller implements Initializable {
 
     DepartDAO dptDAO;

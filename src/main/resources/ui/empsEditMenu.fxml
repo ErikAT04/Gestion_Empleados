@@ -7,22 +7,21 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="368.0" prefWidth="390.0" stylesheets="@../styles/mainStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.erikat.gestion_emples.Scenes.EmpsEditController">
+<AnchorPane prefHeight="368.0" prefWidth="390.0" stylesheets="@../styles/mainStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.erikat.gestion_emples.Scenes.EmpsEditController">
    <children>
-      <Label fx:id="contextLabel" layoutX="149.0" layoutY="27.0" text="Añadir empleado:" />
-      <Label layoutX="92.0" layoutY="56.0" text="DNI:" />
-      <TextField fx:id="dniTField" layoutX="127.0" layoutY="52.0" prefHeight="25.0" prefWidth="174.0" />
-      <Label layoutX="66.0" layoutY="93.0" text="Nombre: " />
-      <TextField fx:id="nameTField" layoutX="127.0" layoutY="89.0" prefHeight="25.0" prefWidth="174.0" />
-      <Label layoutX="64.0" layoutY="137.0" text="Apellidos:" />
-      <TextField fx:id="surnameTField" layoutX="127.0" layoutY="133.0" prefHeight="25.0" prefWidth="174.0" />
-      <Label layoutX="76.0" layoutY="180.0" text="Salario:" />
-      <TextField fx:id="salaryTField" layoutX="127.0" layoutY="176.0" prefHeight="25.0" prefWidth="174.0" />
-      <Label layoutX="41.0" layoutY="224.0" text="Fecha de alta:" />
-      <DatePicker fx:id="joinDPicker" layoutX="127.0" layoutY="220.0" onAction="#onDatePicked" />
-      <Label layoutX="34.0" layoutY="265.0" text="Departamento:" />
-      <ComboBox fx:id="deptCB" layoutX="126.0" layoutY="261.0" prefHeight="25.0" prefWidth="174.0" />
-      <Button fx:id="changeBtt" layoutX="170.0" layoutY="318.0" mnemonicParsing="false" onAction="#onChangeClick" text="Añadir" />
+      <Label fx:id="contextLabel" layoutX="161.0" layoutY="25.0" text="Añadir empleado:" />
+      <Label layoutX="104.0" layoutY="54.0" text="DNI:" />
+      <TextField fx:id="dniTField" layoutX="139.0" layoutY="50.0" prefHeight="25.0" prefWidth="174.0" />
+      <Label layoutX="78.0" layoutY="91.0" text="Nombre: " />
+      <TextField fx:id="nameTField" layoutX="139.0" layoutY="87.0" prefHeight="25.0" prefWidth="174.0" />
+      <Label layoutX="76.0" layoutY="135.0" text="Apellidos:" />
+      <TextField fx:id="surnameTField" layoutX="139.0" layoutY="131.0" prefHeight="25.0" prefWidth="174.0" />
+      <Label layoutX="88.0" layoutY="178.0" text="Salario:" />
+      <TextField fx:id="salaryTField" layoutX="139.0" layoutY="174.0" prefHeight="25.0" prefWidth="174.0" />
+      <Label layoutX="53.0" layoutY="222.0" text="Fecha de alta:" />
+      <DatePicker fx:id="joinDPicker" layoutX="139.0" layoutY="218.0" onAction="#onDatePicked" />
+      <Label layoutX="46.0" layoutY="263.0" text="Departamento:" />
+      <ComboBox fx:id="deptCB" layoutX="138.0" layoutY="259.0" prefHeight="25.0" prefWidth="174.0" />
+      <Button fx:id="changeBtt" layoutX="182.0" layoutY="316.0" mnemonicParsing="false" onAction="#onChangeClick" text="Añadir" />
    </children>
 </AnchorPane>

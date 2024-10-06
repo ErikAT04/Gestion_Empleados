@@ -9,16 +9,16 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="329.0" prefWidth="558.0" stylesheets="@../styles/mainStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.erikat.gestion_emples.Scenes.LoginController">
    <children>
-      <Button layoutX="385.0" layoutY="246.0" mnemonicParsing="false" onAction="#onLoginClick" text="Iniciar Sesión" />
-      <Button layoutX="137.0" layoutY="246.0" mnemonicParsing="false" onAction="#onRegisterClick" text="Registrarse" />
-      <PasswordField fx:id="enterPassField" layoutX="222.0" layoutY="180.0" onKeyTyped="#onPassType" />
-      <Label layoutX="148.0" layoutY="184.0" text="Contraseña:" />
-      <Label layoutX="88.0" layoutY="116.0" text="Nombre de la empresa:" />
-      <TextField fx:id="enterNameTField" layoutX="223.0" layoutY="112.0" onKeyTyped="#onNameType" />
-      <Label fx:id="enterNameLbl" layoutX="385.0" layoutY="116.0" text="0/255" />
-      <Label fx:id="enterPasswdLbl" layoutX="385.0" layoutY="184.0" text="0/255" />
-      <Label layoutX="241.0" layoutY="57.0" text="Bienvenido de vuelta" />
-      <Label layoutX="100.0" layoutY="161.0" onMouseClicked="#onInfoClick" text="🛈">
+      <Button layoutX="381.0" layoutY="246.0" mnemonicParsing="false" onAction="#onLoginClick" text="Iniciar Sesión" />
+      <Button layoutX="133.0" layoutY="246.0" mnemonicParsing="false" onAction="#onRegisterClick" text="Registrarse" />
+      <PasswordField fx:id="enterPassField" layoutX="218.0" layoutY="180.0" onKeyTyped="#onPassType" />
+      <Label layoutX="139.0" layoutY="184.0" text="Contraseña:" />
+      <Label layoutX="74.0" layoutY="116.0" text="Nombre de la empresa:" />
+      <TextField fx:id="enterNameTField" layoutX="219.0" layoutY="112.0" onKeyTyped="#onNameType" />
+      <Label fx:id="enterNameLbl" layoutX="402.0" layoutY="116.0" text="0/64" />
+      <Label fx:id="enterPasswdLbl" layoutX="402.0" layoutY="184.0" text="0/64" />
+      <Label layoutX="237.0" layoutY="57.0" text="Bienvenido de vuelta" />
+      <Label layoutX="80.0" layoutY="163.0" onMouseClicked="#onInfoClick" text="🛈">
          <font>
             <Font size="42.0" />
          </font>

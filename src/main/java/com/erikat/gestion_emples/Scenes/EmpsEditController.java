@@ -22,8 +22,8 @@ import java.util.ResourceBundle;
 //CONTROLADOR QUE AFECTA AL FICHERO 'empsEditMenu.fxml'
 
 public class EmpsEditController extends Controller implements Initializable {
-    private EmpleDAO empDAO;
-    private DepartDAO dptDAO;
+    private EmpleDAO empDAO; //Objeto DAO de empleados
+    private DepartDAO dptDAO; //Objeto DAO de departamentos
     private EmpsMainController prevController;
     @FXML
     private Button changeBtt;

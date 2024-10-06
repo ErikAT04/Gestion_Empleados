@@ -1,5 +1,7 @@
 package com.erikat.gestion_emples.Utils;
 
+//VALIDADOR: Clase con métodos estáticos que comprueban condiciones
+
 public class Validator {
     public static boolean validatePassword(String password, String enterName) {
         if (password.length() < 8) { //Si tiene menos de 8 caracteres

@@ -3,14 +3,14 @@ package com.erikat.gestion_emples.Obj;
 import java.time.LocalDate;
 
 public class Emple {
-    private String dni;
-    private String name;
-    private String surname;
-    private double salary;
-    private LocalDate date_join;
-    private Depart dept;
+    private String dni; //Dni, clave primaria
+    private String name; //Nombre
+    private String surname; //Apellidos
+    private double salary; //Salario
+    private LocalDate date_join; //Fecha de alta
+    private Depart dept; //Objeto que guarda el departamento al que pertenece
 
-    public Emple(String dni, String name, String surname, double salary, LocalDate date_join, Depart dept) {
+    public Emple(String dni, String name, String surname, double salary, LocalDate date_join, Depart dept) { //Constructor
         this.dni = dni;
         this.name = name;
         this.surname = surname;
@@ -68,7 +68,7 @@ public class Emple {
     }
 
     @Override
-    public String toString() {
+    public String toString() { //Sobrecarga de toString para mostrar la información como nos interesa que salga
         return "Empleado de dni " + dni + ": Nombre " + name + " " + surname + ", Salario: " + salary + ", Fecha de Alta: " + date_join + ", Departamento: [" + dept.toString() + "]";
     }
 }

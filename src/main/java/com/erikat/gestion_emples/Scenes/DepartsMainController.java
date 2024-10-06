@@ -11,7 +11,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -41,7 +40,7 @@ public class DepartsMainController extends Controller implements Initializable {
 
     @FXML
     void onAddClick(ActionEvent event) {
-        DepartsEditController controller = (DepartsEditController) SceneUtils.changeSceneNewStage("departsEditMenu.fxml");
+        DepartsEditController controller = (DepartsEditController) SceneUtils.changeSceneNewStage("departsEditMenu.fxml", "Intoducción de departamentos");
     }
 
     @FXML
@@ -59,7 +58,7 @@ public class DepartsMainController extends Controller implements Initializable {
     void onEditClick(ActionEvent event) {
         Depart dpt = this.deptTView.getSelectionModel().getSelectedItem();//Guarda la selección de la tabla en un objeto de tipo Depart
         if (dpt != null) {
-            DepartsEditController controller = (DepartsEditController) SceneUtils.changeSceneNewStage("departsEditMenu.fxml");
+            DepartsEditController controller = (DepartsEditController) SceneUtils.changeSceneNewStage("departsEditMenu.fxml", "Edición de departamentos");
             controller.getPrevController(this);
             controller.load(dpt);
         } else {

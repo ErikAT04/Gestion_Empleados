@@ -1,7 +1,12 @@
 .root {
-    -fx-focus-color: #c7b01c; /*El color de cuando tocas algún objeto, obtiene este color a su alrededor*/
+    -fx-focus-color: #010409; /*El color de cuando tocas algún objeto, obtiene este color a su alrededor*/
     -fx-base: #010409; /*El color de base, es decir, el que tienen todos los contenedores*/
     -fx-control-inner-background: derive(-fx-base, 50%); /*El color de fondo de los objetos*/
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 13px;
+}
+.button:hover{
+    -fx-background-color: #010409;
 }
 
 .date-picker-popup .month-year-pane {

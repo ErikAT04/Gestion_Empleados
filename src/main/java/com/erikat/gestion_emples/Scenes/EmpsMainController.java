@@ -11,15 +11,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 //CONTROLADOR QUE AFECTA AL FICHERO 'empsMainView.fxml'
@@ -57,7 +55,7 @@ public class EmpsMainController extends Controller implements Initializable {
     @FXML
     void onAddClic(ActionEvent event) { //Botón de añadir:
         try {
-            EmpsEditController controller = (EmpsEditController) SceneUtils.changeSceneNewStage("empsEditMenu.fxml"); //Crea una nueva ventana con un stage y guarda su controlador
+            EmpsEditController controller = (EmpsEditController) SceneUtils.changeSceneNewStage("empsEditMenu.fxml", "Introducción de empleados"); //Crea una nueva ventana con un stage y guarda su controlador
             controller.getPrevController(this); //Con el controller creado, le pasa el controlador actual para manipularlo desde la próxima ventana
         } catch (
                 Exception e) { //Puede ocurrir que no pase correctamente el controller, porque de un error al buscar el archivo fxml. El error está controlado en la función, pero aquí falla por la llamada a un objeto nulo
@@ -87,7 +85,7 @@ public class EmpsMainController extends Controller implements Initializable {
             AlertUtil.showAlert("Error de selección", "No se ha seleccionado a ningún usuario", Alert.AlertType.ERROR);
         } else {
             try {
-                EmpsEditController controller = (EmpsEditController) SceneUtils.changeSceneNewStage("empsEditMenu.fxml"); //Carga el FXML en un nuevo stage y guarda su controlador
+                EmpsEditController controller = (EmpsEditController) SceneUtils.changeSceneNewStage("empsEditMenu.fxml", "Edición de empleados"); //Carga el FXML en un nuevo stage y guarda su controlador
                 controller.load(emp); //Al estar editando, carga el objeto de empleado que ha pasado previamente
                 controller.getPrevController(this); //Pasa el controller actual para editarlo más tarde
             }catch (Exception e) { //Igual que antes, puede ocurrir un error porque haya una llamada a un objeto vacío.

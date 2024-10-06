@@ -2,10 +2,8 @@ package com.erikat.gestion_emples.DAO;
 
 import com.erikat.gestion_emples.Obj.Depart;
 import com.erikat.gestion_emples.Obj.Emple;
-import com.erikat.gestion_emples.Obj.Enterprise;
 import com.erikat.gestion_emples.Utils.DatabaseManager;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

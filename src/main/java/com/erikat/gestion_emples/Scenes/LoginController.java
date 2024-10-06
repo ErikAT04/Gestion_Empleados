@@ -20,7 +20,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-//CONTROLADOR QUE AFECTA AL FICHERO 'changeName.fxml'
+//CONTROLADOR QUE AFECTA AL FICHERO 'loginView.fxml'
 
 public class LoginController extends Controller implements Initializable {
 
@@ -39,7 +39,7 @@ public class LoginController extends Controller implements Initializable {
     private EnterpriseDAO enterDAO;
 
     @FXML
-    void onInfoClick(MouseEvent event) {
+    void onInfoClick(MouseEvent event) { //Al dar al icono de información aparece la siguiente alerta:
         String info = """
                 Información de la contraseña:
                     1. Debe tener carácteres alfanuméricos, como mínimo con una mayúscula
@@ -49,7 +49,7 @@ public class LoginController extends Controller implements Initializable {
     }
 
     @FXML
-    void onLoginClick(ActionEvent event) {
+    void onLoginClick(ActionEvent event) { //Al dar al botón de inicio de sesión salta esta función
         String enterpName = enterNameTField.getText();
         String enterpPass = enterPassField.getText();
         String passEncrypted;
@@ -63,40 +63,40 @@ public class LoginController extends Controller implements Initializable {
             } else if (passEncrypted.equals(enter.getEnter_passwd())){
                 AlertUtil.showAlert("Usuario conectado", "Bienvenido de vuelta, " + enter.getEnter_name(), Alert.AlertType.INFORMATION);
                 DatabaseManager.enterp = enter; //Guardo la empresa para usarla más tarde
-                SceneUtils.changeSceneNewStage("mainView.fxml");
+                SceneUtils.changeSceneNewStage("mainView.fxml", "Ventana Principal");
                 ((Stage) this.enterNameLbl.getScene().getWindow()).close(); //Cierro el Stage actual
             }
         }
     }
 
     @FXML
-    void onNameType(KeyEvent event) {
-        int txtSize = enterNameTField.getText().length();
-        if (txtSize > 255){
-            enterNameTField.setText(enterNameTField.getText().substring(0, txtSize));
-        } else if(txtSize < 255){
+    void onNameType(KeyEvent event) { //Cuando se pulsa una tecla en el campo de nombre, se activa esta función
+        int txtSize = enterNameTField.getText().length(); //Guarda el tamaño de texto en una variable
+        if (txtSize > 64){
+            enterNameTField.setText(enterNameTField.getText().substring(0, txtSize)); //Si el texto es más grande de lo señalado, se quita la última letra.
+        } else if(txtSize < 64){ //Si es menor a 64, el texto aparecerá de color blanco
             enterNameLbl.setTextFill(Color.WHITE);
-        } else {
+        } else { //Si es igual a 64, aparecerá en rojo
             enterNameLbl.setTextFill(Color.RED);
         }
-        enterNameLbl.setText(enterNameTField.getText().length()+"/255");
+        enterNameLbl.setText(enterNameTField.getText().length()+"/64"); //Edita el label que hay al lado del campo del nombre
     }
 
     @FXML
-    void onPassType(KeyEvent event) {
-        int txtSize = enterPassField.getText().length();
-        if (txtSize > 255){
+    void onPassType(KeyEvent event) { //Se activa la función cuando se pulsa una tecla en el campo de las contraseñas
+        int txtSize = enterPassField.getText().length(); //Se guarda el tamaño de la contraseña en una variable de enteros
+        if (txtSize > 64){ //Si el texto es máas grande que lo señalado, se quita una letra
             enterPassField.setText(enterPassField.getText().substring(0, txtSize));
-        } else if(txtSize < 255){
+        } else if(txtSize < 64){ //Si es menor a 64, el texto se verá de color blanco
             enterPasswdLbl.setTextFill(Color.WHITE);
-        } else {
+        } else { //Si es igual a 64, se pondrá rojo
             enterPasswdLbl.setTextFill(Color.RED);
         }
-        enterPasswdLbl.setText(enterPassField.getText().length() + "/255");
+        enterPasswdLbl.setText(enterPassField.getText().length() + "/64"); //Al final, se edita el label que tiene al lado el campo de la contraseña
     }
 
     @FXML
-    void onRegisterClick(ActionEvent event) {
+    void onRegisterClick(ActionEvent event) { //Acción de darle al botón de registrarse
         String enterpName = enterNameTField.getText();
         String enterpPass = enterPassField.getText();
         String passEncrypted;
@@ -111,7 +111,7 @@ public class LoginController extends Controller implements Initializable {
             if (enterDAO.registerEnterprise(enterpName, passEncrypted)==1){ //Si se actualiza una fila (es decir, si ha salido bien el insert)
                 AlertUtil.showAlert("Creación de cuenta", "Cuenta creada correctamente", Alert.AlertType.INFORMATION);
                 DatabaseManager.enterp = enterDAO.searchEnterp(enterpName); //Se guarda la empresa seleccionada de forma estática, ya que va a ser utilizada más adelante.
-                SceneUtils.changeSceneNewStage("mainView.fxml");
+                SceneUtils.changeSceneNewStage("mainView.fxml", "Ventana Principal");
                 ((Stage) this.enterNameLbl.getScene().getWindow()).close(); //Cierro el Stage actual
             } else {
                 AlertUtil.showAlert("Error de creación", "Ha habido un error a la hora de crear su base de datos", Alert.AlertType.ERROR);
@@ -120,7 +120,7 @@ public class LoginController extends Controller implements Initializable {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle) { //Se inicializa la clase DAO de empresa
          enterDAO = new EnterpriseDAO();
     }
 }

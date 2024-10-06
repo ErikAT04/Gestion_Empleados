@@ -4,12 +4,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="286.0" stylesheets="@../styles/mainStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.erikat.gestion_emples.Scenes.MainController">
+<AnchorPane prefHeight="400.0" prefWidth="286.0" stylesheets="@../styles/mainStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.erikat.gestion_emples.Scenes.MainController">
    <children>
-      <Label layoutX="57.0" layoutY="90.0" text="Selecciona qué quiere gestionar:" />
-      <Button fx:id="othersBtt" layoutX="100.0" layoutY="263.0" mnemonicParsing="false" onAction="#onOthersClick" text="Otros ajustes" />
-      <Button fx:id="empBtt" layoutX="106.0" layoutY="200.0" mnemonicParsing="false" onAction="#onEmployeeClick" text="Empleados" />
-      <Button fx:id="dptBtt" layoutX="94.0" layoutY="138.0" mnemonicParsing="false" onAction="#onDepartsClick" text="Departamentos" />
-      <Label fx:id="enterpLbl" layoutX="14.0" layoutY="368.0" text="Empresa: " />
+      <Label layoutX="46.0" layoutY="89.0" text="Selecciona qué quiere gestionar:" />
+      <Button fx:id="othersBtt" layoutX="88.0" layoutY="262.0" mnemonicParsing="false" onAction="#onOthersClick" prefHeight="27.0" prefWidth="111.0" text="Otros ajustes" />
+      <Button fx:id="empBtt" layoutX="88.0" layoutY="202.0" mnemonicParsing="false" onAction="#onEmployeeClick" prefHeight="27.0" prefWidth="111.0" text="Empleados" />
+      <Button fx:id="dptBtt" layoutX="88.0" layoutY="142.0" mnemonicParsing="false" onAction="#onDepartsClick" text="Departamentos" />
+      <Label fx:id="enterpLbl" layoutX="14.0" layoutY="367.0" text="Empresa: " />
    </children>
 </AnchorPane>

@@ -6,8 +6,8 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="784.0" stylesheets="@../styles/mainStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.erikat.gestion_emples.Scenes.EmpsMainController">
-   <TableView fx:id="empTView" layoutX="246.0" layoutY="100.0" prefHeight="200.0" prefWidth="529.0">
+<AnchorPane prefHeight="400.0" prefWidth="816.0" stylesheets="@../styles/mainStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.erikat.gestion_emples.Scenes.EmpsMainController">
+   <TableView fx:id="empTView" layoutX="259.0" layoutY="100.0" prefHeight="200.0" prefWidth="529.0">
      <columns>
        <TableColumn id="dniCol" fx:id="dniCol" prefWidth="87.0" text="DNI" />
        <TableColumn id="nameCol" fx:id="nameCol" prefWidth="77.0" text="Nombre" />
@@ -17,9 +17,9 @@
          <TableColumn id="dptCol" fx:id="dptCol" prefWidth="90.0" text="Departamento" />
      </columns>
    </TableView>
-   <Button fx:id="addBtt" layoutX="305.0" layoutY="317.0" mnemonicParsing="false" onAction="#onAddClic" text="Añadir" />
-   <Button fx:id="editBtt" layoutX="487.0" layoutY="317.0" mnemonicParsing="false" onAction="#onEditClick" text="Editar" />
-   <Button layoutX="656.0" layoutY="317.0" mnemonicParsing="false" onAction="#onDeleteClick" text="Elimitar" />
+   <Button fx:id="addBtt" layoutX="259.0" layoutY="317.0" mnemonicParsing="false" onAction="#onAddClic" text="Añadir" />
+   <Button fx:id="editBtt" layoutX="495.0" layoutY="317.0" mnemonicParsing="false" onAction="#onEditClick" text="Editar" />
+   <Button layoutX="721.0" layoutY="317.0" mnemonicParsing="false" onAction="#onDeleteClick" text="Elimitar" />
    <Label layoutX="475.0" layoutY="52.0" text="Gestión de empleados" />
     <fx:include source="mainView.fxml" />
 </AnchorPane>

@@ -46,12 +46,12 @@ public class OthersController extends Controller implements Initializable {
 
     @FXML
     void onChangeNameClic(ActionEvent event) {
-
+        SceneUtils.changeSceneNewStage("changeName.fxml");
     }
 
     @FXML
     void onChangePasswdClick(ActionEvent event) {
-
+        SceneUtils.changeSceneNewStage("changePasswd.fxml");
     }
 
     @FXML

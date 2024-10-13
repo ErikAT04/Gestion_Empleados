@@ -8,11 +8,9 @@ import com.erikat.gestion_emples.Utils.SceneUtils;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -22,15 +20,9 @@ import java.util.ResourceBundle;
 //CONTROLADOR QUE AFECTA AL FICHERO 'departsMainView.fxml'
 
 public class DepartsMainController extends Controller implements Initializable {
-    DepartDAO dptDAO;
-    @FXML
-    private Button addBtt;
 
     @FXML
     private TableView<Depart> deptTView;
-
-    @FXML
-    private Button editBtt;
 
     @FXML
     private TableColumn<Depart, String> locTColumn;
@@ -39,15 +31,18 @@ public class DepartsMainController extends Controller implements Initializable {
     private TableColumn<Depart, String> nameTColumn;
 
     @FXML
-    void onAddClick(ActionEvent event) {
+    void onAddClick() {
         DepartsEditController controller = (DepartsEditController) SceneUtils.changeSceneNewStage("departsEditMenu.fxml", "Intoducción de departamentos");
+        if (controller != null) {
+            controller.getPrevController(this);
+        }
     }
 
     @FXML
-    void onDeleteClick(ActionEvent event) {
+    void onDeleteClick() {
         Depart dpt = this.deptTView.getSelectionModel().getSelectedItem();//Guarda la selección de la tabla en un objeto de tipo Depart
         if (dpt != null) { //Si la selección no es nula (Se ha seleccionado algo:
-            dptDAO.dropDept(dpt.getId());
+            DepartDAO.dropDept(dpt.getId());
             AlertUtil.showAlert("Borrado de departamentos", "Departamento borrado correctamente", Alert.AlertType.INFORMATION);
         } else {
             AlertUtil.showAlert("Borrado de departamentos", "No has seleccionado ningún departamento", Alert.AlertType.ERROR);
@@ -55,12 +50,14 @@ public class DepartsMainController extends Controller implements Initializable {
     }
 
     @FXML
-    void onEditClick(ActionEvent event) {
+    void onEditClick() {
         Depart dpt = this.deptTView.getSelectionModel().getSelectedItem();//Guarda la selección de la tabla en un objeto de tipo Depart
         if (dpt != null) {
             DepartsEditController controller = (DepartsEditController) SceneUtils.changeSceneNewStage("departsEditMenu.fxml", "Edición de departamentos");
-            controller.getPrevController(this);
-            controller.load(dpt);
+            if (controller != null) {
+                controller.getPrevController(this);
+                controller.load(dpt);
+            }
         } else {
             AlertUtil.showAlert("Borrado de departamentos", "No has seleccionado ningún departamento", Alert.AlertType.ERROR);
         }
@@ -68,13 +65,12 @@ public class DepartsMainController extends Controller implements Initializable {
     }
 
     public void tableRefresh(){ //Se encarga de cargar y recargar la tabla
-        ObservableList<Depart> list = FXCollections.observableArrayList(dptDAO.listDepts());
+        ObservableList<Depart> list = FXCollections.observableArrayList(DepartDAO.listDepts());
         deptTView.setItems(list);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        dptDAO = new DepartDAO(); //Crea el objeto DAO
         /*
         En las siguientes líneas, se realiza lo siguiente:
             1-Se crea un objeto de solo lectura que guardará los valores de cada celda. Se crea uno por columna de la tabla

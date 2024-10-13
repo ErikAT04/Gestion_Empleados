@@ -4,7 +4,6 @@ import com.erikat.gestion_emples.DAO.DepartDAO;
 import com.erikat.gestion_emples.Obj.Depart;
 import com.erikat.gestion_emples.Utils.AlertUtil;
 import com.erikat.gestion_emples.Utils.Controller;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -33,12 +32,10 @@ public class DepartsEditController extends Controller {
     private boolean isEditing = false;
     //Booleana que controla cómo se ha accedido a esta sección: False si se ha entrado por el botón de añadir y True si se ha entrado por el de editar
 
-    DepartDAO dptDAO; //Clase DAO de departamento
-
     DepartsMainController prevController;
 
     @FXML
-    void onActionClick(ActionEvent event) {
+    void onActionClick() {
         /*
         Requisitos de funcionamiento:
             1-Todos los campos están rellenos
@@ -51,13 +48,13 @@ public class DepartsEditController extends Controller {
         } else {
             String location = locTField.getText();
             String name = nameTField.getText();
-            if (dptDAO.lookIfDepartExists(name, location)){ //Si ya existe un departamento en esa empresa con esos datos:
+            if (DepartDAO.lookIfDepartExists(name, location)){ //Si ya existe un departamento en esa empresa con esos datos:
                 AlertUtil.showAlert("Error de opción", "Ya existe un departamento con esos datos", Alert.AlertType.ERROR);
             } else {
                 if (isEditing){ //Si la booleana es True (se entró desde el botón de editar)
                     dpt.setDept_location(location);
                     dpt.setDept_name(name);
-                    if (dptDAO.modDept(dpt) == 1){ //Si la actualización se ha hecho bien (Se ha actualizado una única fila)
+                    if (DepartDAO.modDept(dpt) == 1){ //Si la actualización se ha hecho bien (Se ha actualizado una única fila)
                         AlertUtil.showAlert("Actualización de departamento", "Acción realizada correctamente", Alert.AlertType.INFORMATION);
                         prevController.tableRefresh(); //Se refresca la tabla del menú principal
                         ((Stage)this.actionBtt.getScene().getWindow()).close(); //Se cierra esta ventana
@@ -65,7 +62,7 @@ public class DepartsEditController extends Controller {
                         AlertUtil.showAlert("Error de actualización", "Ha habido un error en la base de datos", Alert.AlertType.ERROR);
                     }
                 } else { //Si la booleana es False (se entró desde el botón de añadir)
-                    if (dptDAO.addDept(name, location) == 1){ //Si se ha añadido correctamente (Se ha añadido una línea)
+                    if (DepartDAO.addDept(name, location) == 1){ //Si se ha añadido correctamente (Se ha añadido una línea)
                         AlertUtil.showAlert("Introducción de departamento", "Departamento añadido correctamente", Alert.AlertType.INFORMATION);
                         prevController.tableRefresh(); //Se refresca la tabla del menú principal
                         ((Stage)this.actionBtt.getScene().getWindow()).close(); //Se cierra esta ventana
@@ -87,6 +84,5 @@ public class DepartsEditController extends Controller {
     }
     void getPrevController(DepartsMainController controller){
         this.prevController = controller; //El objetivo principal de la función es pasar el controlador de la tabla para poder refrescar la tabla
-        dptDAO = new DepartDAO(); //Como todos los métodos que abren el fxml usan esta función, se puede crear aquí el objeto
     }
 }

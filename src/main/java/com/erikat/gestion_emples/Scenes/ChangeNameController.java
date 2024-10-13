@@ -5,9 +5,7 @@ import com.erikat.gestion_emples.Obj.Enterprise;
 import com.erikat.gestion_emples.Utils.AlertUtil;
 import com.erikat.gestion_emples.Utils.Controller;
 import com.erikat.gestion_emples.Utils.DatabaseManager;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -15,13 +13,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.apache.commons.codec.digest.DigestUtils;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 //CONTROLADOR QUE AFECTA AL FICHERO 'changeName.fxml'
 
-public class ChangeNameController extends Controller implements Initializable {
-    EnterpriseDAO enterDAO; //Necesita acceder a la clase DAO de Empresas
+public class ChangeNameController extends Controller {
     @FXML
     private Button changeBtt;
 
@@ -32,7 +26,7 @@ public class ChangeNameController extends Controller implements Initializable {
     private PasswordField passField;
 
     @FXML
-    void onChangeClick(ActionEvent event) {
+    void onChangeClick() {
         /*
         Tiene que cumplir ciertas condiciones:
             1-Los campos no pueden estar vacíos
@@ -53,7 +47,7 @@ public class ChangeNameController extends Controller implements Initializable {
                     Enterprise enter = new Enterprise(DatabaseManager.enterp.getId(), nameTField.getText(), DatabaseManager.enterp.getEnter_passwd());
                     //Antes de cambiar datos en la aplicación, uso una copia del objeto. Es necesario crear un nuevo objeto porque, de lo contrario, modificaría la dirección de memoria
                     //Además, en el atributo del nombre pongo el nombre nuevo
-                    if (enterDAO.updateEnterprise(enter) == 1) { //Si el update sale correctamente:
+                    if (EnterpriseDAO.updateEnterprise(enter) == 1) { //Si el update sale correctamente:
                         AlertUtil.showAlert("Cambio de nombre", "Nombre de cuenta cambiada correctamente", Alert.AlertType.INFORMATION);
                         DatabaseManager.enterp = enter; //Ahora sí, se iguala al nuevo usuario, ya que se ha cambiado sin problema
                         ((Stage) this.changeBtt.getScene().getWindow()).close();
@@ -63,10 +57,5 @@ public class ChangeNameController extends Controller implements Initializable {
                 }
             }
         }
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) { //Inicializa el controlador para iniciar el objeto DAO
-        enterDAO = new EnterpriseDAO();
     }
 }

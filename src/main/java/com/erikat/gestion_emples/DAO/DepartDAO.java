@@ -4,22 +4,17 @@ import com.erikat.gestion_emples.Obj.Depart;
 import com.erikat.gestion_emples.Obj.Emple;
 import com.erikat.gestion_emples.Utils.DatabaseManager;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DepartDAO {
-    private Connection con;
-    public DepartDAO(){
-        con = DatabaseManager.conectar();
-    }
-    public int addDept(String dept_name, String dept_location){
+    public static int addDept(String dept_name, String dept_location){
         String sql = "INSERT INTO DEPT(dept_name, dept_location, enterprise) VALUES (?, ?, ?);";
         try{
 
-            PreparedStatement sentencia = con.prepareStatement(sql);
+            PreparedStatement sentencia = DatabaseManager.con.prepareStatement(sql);
             sentencia.setString(1, dept_name);
             sentencia.setString(2, dept_location);
             sentencia.setInt(3, DatabaseManager.enterp.getId());
@@ -30,11 +25,11 @@ public class DepartDAO {
         }
         return -1; //Valor que solo puede dar si hay error en el try-catch
     }
-    public int modDept(Depart dept){
+    public static int modDept(Depart dept){
         String sql = "UPDATE DEPT SET dept_name = ?, dept_location = ? WHERE id = ?";
         try{
 
-            PreparedStatement sentencia = con.prepareStatement(sql);
+            PreparedStatement sentencia = DatabaseManager.con.prepareStatement(sql);
             sentencia.setString(1, dept.getDept_name());
             sentencia.setString(2, dept.getDept_location());
             sentencia.setInt(3, dept.getId());
@@ -46,18 +41,17 @@ public class DepartDAO {
         }
         return -1;
     }
-    public int dropDept(int id){
-        EmpleDAO empDAO = new EmpleDAO();
-        ArrayList<Emple> listEmple = empDAO.listEmple();
+    public static int dropDept(int id){
+        ArrayList<Emple> listEmple = EmpleDAO.listEmple();
         for (Emple e : listEmple){
             if (e.getDept().getId() == id){
-                empDAO.deleteEmple(e.getDNI()); //Primero borra a todos los empleados del departamento
+                EmpleDAO.deleteEmple(e.getDNI()); //Primero borra a todos los empleados del departamento
             }
         }
         String sql = "DELETE FROM DEPT WHERE ID = ?";
         try{
 
-            PreparedStatement sentencia = con.prepareStatement(sql);
+            PreparedStatement sentencia = DatabaseManager.con.prepareStatement(sql);
             sentencia.setInt(1, id);
             return sentencia.executeUpdate(); //Devuelve el número de líneas actualizadas (El programa funciona bien si solo sale una)
 
@@ -66,12 +60,12 @@ public class DepartDAO {
         }
         return -1; //Caso donde hay un error, nunca va a haber -1 actualizaciones
     }
-    public ArrayList<Depart> listDepts(){
+    public static ArrayList<Depart> listDepts(){
         ArrayList<Depart> list = new ArrayList<>();
         String sql = "SELECT * FROM DEPT WHERE ENTERPRISE = ?";
         try{
 
-            PreparedStatement sentencia = con.prepareStatement(sql);
+            PreparedStatement sentencia = DatabaseManager.con.prepareStatement(sql);
             sentencia.setInt(1, DatabaseManager.enterp.getId());
             ResultSet rs = sentencia.executeQuery(); //ResultSet, lista que guarda los datos
             while (rs.next()){ //Cada iteración del bucle baja una fila en la lista hasta que ya no hay más filas
@@ -87,12 +81,12 @@ public class DepartDAO {
         return list; //Devuelve la lista, independientemente de si tiene o no filas
     }
 
-    public Depart searchDept(int id){
+    public static Depart searchDept(int id){
         Depart dpt = null;
         String sql = "SELECT * FROM DEPT WHERE ID = ?";
         try{
 
-            PreparedStatement sentencia = con.prepareStatement(sql);
+            PreparedStatement sentencia = DatabaseManager.con.prepareStatement(sql);
             sentencia.setInt(1, id);
 
             ResultSet rs = sentencia.executeQuery();
@@ -107,10 +101,10 @@ public class DepartDAO {
         }
         return dpt;
     }
-    public boolean lookIfDepartExists(String name, String location){
+    public static boolean lookIfDepartExists(String name, String location){
         String sql = "SELECT * FROM DEPT WHERE dept_name = ? AND dept_location = ? AND enterprise = ?";
         try{
-            PreparedStatement sentencia = con.prepareStatement(sql);
+            PreparedStatement sentencia = DatabaseManager.con.prepareStatement(sql);
             sentencia.setString(1, name);
             sentencia.setString(2, location);
             sentencia.setInt(3, DatabaseManager.enterp.getId());

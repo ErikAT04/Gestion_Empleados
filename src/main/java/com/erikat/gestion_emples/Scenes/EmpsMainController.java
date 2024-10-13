@@ -23,8 +23,6 @@ import java.util.ResourceBundle;
 //CONTROLADOR QUE AFECTA AL FICHERO 'empsMainView.fxml'
 
 public class EmpsMainController extends Controller implements Initializable {
-
-    EmpleDAO empDAO; //Clase DAO de empleados
     @FXML
     private Button addBtt;
 
@@ -69,7 +67,7 @@ public class EmpsMainController extends Controller implements Initializable {
         if (emp == null) { //Si el empleado es nulo (no se ha seleccionado a nadie):
             AlertUtil.showAlert("Error de selección", "No se ha seleccionado a ningún empleado", Alert.AlertType.ERROR);
         } else {
-            if (empDAO.deleteEmple(emp.getDNI()) == 1) { //Si se ha eliminado correctamente (Solo una líea)
+            if (EmpleDAO.deleteEmple(emp.getDNI()) == 1) { //Si se ha eliminado correctamente (Solo una líea)
                 AlertUtil.showAlert("Eliminación de empleado", "Usuario borrado correctamente", Alert.AlertType.INFORMATION);
                 tableRefresh();//Refresca la tabla
             } else {
@@ -96,7 +94,6 @@ public class EmpsMainController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) { //Inicializa la tabla y la clase DAO
-        empDAO = new EmpleDAO(); //Inicializa
         /*
         En las siguientes líneas, se realiza lo siguiente:
             1-Se crea un objeto de solo lectura que guardará los valores de cada celda. Se crea uno por columna de la tabla
@@ -115,7 +112,7 @@ public class EmpsMainController extends Controller implements Initializable {
     }
 
     public void tableRefresh() { //Función que se encarga de cargar y refrescar (recargar) la tabla
-        ObservableList<Emple> empleList = FXCollections.observableArrayList(empDAO.listEmple()); //Crea un objeto de tipo ObservableArrayList (Lista observable de FXCollections)
+        ObservableList<Emple> empleList = FXCollections.observableArrayList(EmpleDAO.listEmple()); //Crea un objeto de tipo ObservableArrayList (Lista observable de FXCollections)
         empTView.setItems(empleList); //Se importa la lista observable a la tabla para que muestre su contenido.
     }
 }

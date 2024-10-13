@@ -7,7 +7,6 @@ import com.erikat.gestion_emples.Obj.Emple;
 import com.erikat.gestion_emples.Utils.AlertUtil;
 import com.erikat.gestion_emples.Utils.Controller;
 import com.erikat.gestion_emples.Utils.Validator;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -22,8 +21,6 @@ import java.util.ResourceBundle;
 //CONTROLADOR QUE AFECTA AL FICHERO 'empsEditMenu.fxml'
 
 public class EmpsEditController extends Controller implements Initializable {
-    private EmpleDAO empDAO; //Objeto DAO de empleados
-    private DepartDAO dptDAO; //Objeto DAO de departamentos
     private EmpsMainController prevController;
     @FXML
     private Button changeBtt;
@@ -56,7 +53,7 @@ public class EmpsEditController extends Controller implements Initializable {
     HashMap<String, Depart> deptMap; //Creo un Hashmap para controlar los departamentos
 
     @FXML
-    void onDatePicked(ActionEvent event) { //Esta función controla el datePicker de la fecha de alta
+    void onDatePicked() { //Esta función controla el datePicker de la fecha de alta
         try {
             LocalDate datePicked = joinDPicker.getValue();
             if (datePicked.isAfter(LocalDate.now())){ //Si la fecha dada por el objeto es posterior a la fecha actual:
@@ -71,7 +68,7 @@ public class EmpsEditController extends Controller implements Initializable {
     }
 
     @FXML
-    void onChangeClick(ActionEvent event){ //Botón de cambio:
+    void onChangeClick(){ //Botón de cambio:
         /*
         Requisitos para que funcione correctamente:
             1-Todos los campos están rellenados
@@ -91,9 +88,9 @@ public class EmpsEditController extends Controller implements Initializable {
                 LocalDate date_join = joinDPicker.getValue();
                 Depart dpt = deptMap.get(deptCB.getValue());
                 if (Validator.validateDNI(dni)){ //Si el DNI sigue un formato válido:
-                    Emple e = empDAO.searchEmple(dni);
+                    Emple e = EmpleDAO.searchEmple(dni);
                     if (e==null){ //Aquí solo va a llegar si se está añadiendo, ya que el DNI no es editable en el otro caso.
-                        if (empDAO.addEmple(dni, dpt, name, surname, salary, date_join) == 1){ //Si se añade correctamente el usuario (Se añade una fila)
+                        if (EmpleDAO.addEmple(dni, dpt, name, surname, salary, date_join) == 1){ //Si se añade correctamente el usuario (Se añade una fila)
                             AlertUtil.showAlert("Gestión de empleados", "Empleado añadido correctamente", Alert.AlertType.INFORMATION);
                             prevController.tableRefresh(); //Se refresca la tabla
                             ((Stage) contextLabel.getScene().getWindow()).close(); //Se cierra la ventana
@@ -102,7 +99,7 @@ public class EmpsEditController extends Controller implements Initializable {
                         }
                     } else {//Si no es nulo (Si ha detectado que hay un empleado con ese DNI)
                         if (isEditing){ //Si ha entrado desde la opción de editar:
-                            if (empDAO.modEmple(new Emple(e.getDNI(), name, surname, salary, date_join, dpt)) == 1){ //Si se ha editado correctamente (Se ha editado una fila)
+                            if (EmpleDAO.modEmple(new Emple(e.getDNI(), name, surname, salary, date_join, dpt)) == 1){ //Si se ha editado correctamente (Se ha editado una fila)
                                 AlertUtil.showAlert("Gestión de empleados", "Empleado modificado correctamente", Alert.AlertType.INFORMATION);
                                 prevController.tableRefresh(); //Se refresca la tabla
                                 ((Stage) contextLabel.getScene().getWindow()).close(); //Se cierra esta ventana
@@ -125,9 +122,7 @@ public class EmpsEditController extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) { //Inicia todos los campos
         deptMap = new HashMap<>(); //Declara el hashMap encargado de guardar los valores del ComboBox
-        empDAO = new EmpleDAO(); //Crea el DAO de empleados
-        dptDAO = new DepartDAO(); //Crea el DAO de departamentos
-        listDpt = dptDAO.listDepts(); //Introduce en la lista todos los departamentos de la base de datos
+        listDpt = DepartDAO.listDepts(); //Introduce en la lista todos los departamentos de la base de datos
         for (Depart dpt : listDpt){ //ForEach de la lista:
             String dptInfo = dpt.getDept_name() + " (" + dpt.getDept_location() + ")"; //Crea un String que guarda la información a modo de "Nombre (Localización)
             deptMap.put(dptInfo, dpt); //En el hashMap se añade el string como clave y el departamento como valor.

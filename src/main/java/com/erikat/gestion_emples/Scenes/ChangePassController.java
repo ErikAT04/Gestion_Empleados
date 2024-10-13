@@ -6,22 +6,16 @@ import com.erikat.gestion_emples.Utils.AlertUtil;
 import com.erikat.gestion_emples.Utils.Controller;
 import com.erikat.gestion_emples.Utils.DatabaseManager;
 import com.erikat.gestion_emples.Utils.Validator;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
 import org.apache.commons.codec.digest.DigestUtils;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 //CONTROLADOR QUE AFECTA AL FICHERO 'changePasswd.fxml'
 
-public class ChangePassController extends Controller implements Initializable {
-    EnterpriseDAO enterDAO; //Objeto DAO de empresa
+public class ChangePassController extends Controller {
     @FXML
     private Button changeBtt;
 
@@ -32,7 +26,7 @@ public class ChangePassController extends Controller implements Initializable {
     private PasswordField oldPassField;
 
     @FXML
-    void onChangeClic(ActionEvent event) {
+    void onChangeClic() {
         /*
         Condiciones a cumplir:
             1-Los campos están rellenos
@@ -52,7 +46,7 @@ public class ChangePassController extends Controller implements Initializable {
                     AlertUtil.showAlert("Error de contraseñas", "La nueva contraseña no puede ser la misma que la anterior", Alert.AlertType.ERROR);
                 } else {
                     Enterprise enterp = new Enterprise(DatabaseManager.enterp.getId(), DatabaseManager.enterp.getEnter_name(), newPass); //Creo un nuevo objeto de tipo Enterprise (no sirve igualar porque copiaría la dirección de memoria
-                    if (enterDAO.updateEnterprise(enterp) == 1) { //Si se ha realizado el cambio correctamente (se ha actualizado una linea)
+                    if (EnterpriseDAO.updateEnterprise(enterp) == 1) { //Si se ha realizado el cambio correctamente (se ha actualizado una linea)
                         AlertUtil.showAlert("Cambio de contraseña", "Contraseña cambiada correctamente", Alert.AlertType.INFORMATION);
                         DatabaseManager.enterp = enterp; //Ahora sí, se guarda el cambio en el atributo estçatico
                         ((Stage) this.changeBtt.getScene().getWindow()).close(); //Se cierra la ventana actual
@@ -64,11 +58,6 @@ public class ChangePassController extends Controller implements Initializable {
                 AlertUtil.showAlert("Error de contraseña", "La antigua contraseña es incorrecta\nInténtelo de nuevo.", Alert.AlertType.ERROR);
             }
         }
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) { //Inicializa la clase DAO
-        enterDAO = new EnterpriseDAO();
     }
 }
 
